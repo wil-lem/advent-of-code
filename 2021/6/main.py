@@ -21,13 +21,10 @@ def runDays(file,days):
     
     while day < days:
         ageZero = fishCount[0]
-        j = 0
-        while j < 8:
-            fishCount[j] = fishCount[j+1] 
-            j += 1
+        fishCount = fishCount[1:]
         fishCount[6] += ageZero
-        fishCount[8] = ageZero
-    
+        fishCount.append(ageZero)
+        
         day += 1
     return sum(fishCount)
 
