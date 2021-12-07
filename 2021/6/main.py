@@ -1,16 +1,23 @@
 import re
+import time
 
 def part_one(file):
+    start = time.time()
     count = runDays(file,80)
     print('P1 ' + file + ': ' + str(count))
-    
+    end = time.time()
+    print("The time of execution of above program is :", round((end-start)*1000,3),'ms')
+
 def part_two(file):
+    start = time.time()
     count = runDays(file,256)
     print('P2 ' + file + ': ' + str(count))
     
+    end = time.time()
+    print("The time of execution of above program is :", round((end-start)*1000,3),'ms')
 
 def runDays(file,days):
-    
+
     lines = read_file(file)
     fishCount = [0]*9
 
@@ -26,6 +33,7 @@ def runDays(file,days):
         fishCount.append(ageZero)
         
         day += 1
+
     return sum(fishCount)
 
       
