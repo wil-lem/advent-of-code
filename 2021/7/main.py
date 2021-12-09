@@ -40,7 +40,7 @@ def part_two(file):
 
 def part_test():
     import random
-    for i in range(0,100):
+    for i in range(0,1000):
         randomlist = []
         for j in range(0,20):
             n = random.randint(0,10)
