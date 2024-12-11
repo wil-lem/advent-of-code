@@ -3,53 +3,25 @@ import time
 
 def blink(numbers):
     
-    new_numbers = {}
+    newNumbers = {}
     
     for number in numbers:
+        createNumbers = []
         count = numbers[number]
+
         if number == '0':
-            if '1' not in new_numbers:
-                new_numbers['1'] = count
-            else:
-                new_numbers['1'] += count
+            createNumbers.append('1')
         elif len(number) % 2 == 0:
-            first_half = number[:int(len(number)/2)]
-            last_half = number[int(len(number)/2):]
-            while last_half[0] == '0' and len(last_half) > 1:
-                last_half = last_half[1:]
-
-            if first_half not in new_numbers:
-                new_numbers[first_half] = count
-            else:
-                new_numbers[first_half] += count
-            if last_half not in new_numbers:
-                new_numbers[last_half] = count
-            else:
-                new_numbers[last_half] += count
+            createNumbers.append(number[:int(len(number)/2)])
+            createNumbers.append(str(int(number[int(len(number)/2):])))
         else:
-            number = str(int(number)*2024)
-            if number not in new_numbers:
-                new_numbers[number] = count
-            else:
-                new_numbers[number] += count
-    return new_numbers
-    
-    # print(numbers)
-    # # new_numbers = []
-    # # for number in numbers:
-    #     if number == '0':
-    #         new_numbers.append('1')
-
-    #     elif len(number) % 2 == 0:
-    #         new_numbers.append(number[:int(len(number)/2)])
-    #         last_half = number[int(len(number)/2):]
-    #         while last_half[0] == '0' and len(last_half) > 1:
-    #             last_half = last_half[1:]
-    #         new_numbers.append(last_half)
-    #     # 
-    #     else:
-    #         new_numbers.append(str(int(number)*2024))
-    # return new_numbers
+            createNumbers.append(str(int(number)*2024))
+        
+        for newNumber in createNumbers:
+            if newNumber not in newNumbers:
+                newNumbers[newNumber] = 0
+            newNumbers[newNumber] += count
+    return newNumbers
 
 def main(filename):
   
@@ -57,12 +29,7 @@ def main(filename):
     numbers = re.findall(r'\d+', line)
     numberCounts = {}
     for number in numbers:
-        if number not in numberCounts:
-            numberCounts[number] = 1
-        else:
-            numberCounts[number] += 1
-
-    # new_numbers = []
+        numberCounts[number] = 1
 
     for i in range(25):
         numberCounts = blink(numberCounts)
@@ -70,16 +37,14 @@ def main(filename):
     total = 0
     for number in numberCounts:
         total += numberCounts[number]
-    print(total)
+    print('1',filename,total)
     
     total = 0
     for i in range(50):
         numberCounts = blink(numberCounts)
-    
     for number in numberCounts:
         total += numberCounts[number]
-    
+    print('2',filename,total)
 
-    print(total)
 main('test')
 main('real')
